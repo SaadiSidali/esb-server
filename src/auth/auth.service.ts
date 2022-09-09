@@ -14,7 +14,7 @@ import * as argon2 from 'argon2';
 import { SignUpInput } from './signup-input';
 import User from '../user/user.entity';
 import { SignInInput } from './signin-input';
-import Login from './login-type';
+import Login from './token-type';
 import { JwtPayload } from './jwt-payload.interface';
 import { Profile } from 'src/user/profile.entity';
 
@@ -26,7 +26,7 @@ export class AuthService {
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signUp(signupInput: SignUpInput): Promise<User> {
     const { email, username, password } = signupInput;

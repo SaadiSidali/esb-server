@@ -2,7 +2,7 @@ import { Args, Int, Query, Resolver, Mutation } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import Login from './login-type';
+import Token from './token-type';
 import { SignInInput } from './signin-input';
 import { SignUpInput } from './signup-input';
 import User from '../user/user-type';
@@ -22,7 +22,7 @@ export class AuthResolver {
         return this.authService.signUp(signUpInput);
     }
 
-    @Mutation((returns) => Login)
+    @Mutation((returns) => Token)
     async signIn(@Args('signInInput') signInInput: SignInInput) {
         return this.authService.signIn(signInInput);
     }

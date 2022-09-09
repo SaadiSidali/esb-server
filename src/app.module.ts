@@ -2,6 +2,12 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+dotenv.config({
+  path: (process.env.NODE_ENV === 'production') ? '.env' : '.development.env'
+});
+
+
 
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -12,13 +18,13 @@ import { Profile } from './user/profile.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'admin',
-      database: 'zooweemama',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       entities: [User, Profile],
-      synchronize: true,
+      synchronize: !(process.env.NODE_ENV === 'production'),
     }),
     AuthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -29,4 +35,4 @@ import { Profile } from './user/profile.entity';
     UserModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

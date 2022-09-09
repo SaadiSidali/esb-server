@@ -11,9 +11,9 @@ import { JwtStrategy } from './jwt.strategy';
   imports: [
     UserModule,
     JwtModule.register({
-      secret: 'superdupersecret',
+      secret: process.env.JWT_SECRET,
       signOptions: {
-        expiresIn: 30 * 60,
+        expiresIn: process.env.JWT_EXPIRESIN,
       },
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
@@ -21,4 +21,4 @@ import { JwtStrategy } from './jwt.strategy';
   providers: [AuthResolver, AuthService, JwtStrategy],
   exports: [JwtStrategy, PassportModule],
 })
-export class AuthModule {}
+export class AuthModule { }
