@@ -2,36 +2,36 @@ import { Field, ObjectType, ID } from '@nestjs/graphql';
 
 @ObjectType()
 export class Profile {
-    @Field()
-    id: number;
+  @Field()
+  id: number;
 
-    @Field()
-    firstName: string;
+  @Field()
+  firstName: string;
 
-    @Field()
-    lastName: string;
+  @Field()
+  lastName: string;
 
-    @Field()
-    phoneNumber: string;
+  @Field()
+  phoneNumber: string;
 
-    @Field()
-    levelOfStudy: string;
+  @Field()
+  levelOfStudy: string;
 
-    @Field()
-    expectedSalary: string;
+  @Field()
+  expectedSalary: string;
 
-    @Field()
-    wilaya: string;
+  @Field()
+  wilaya: string;
 
-    @Field()
-    biography: string;
+  @Field()
+  biography: string;
 
-    @Field()
-    repoUrl: string;
+  @Field()
+  repoUrl: string;
 
-    @Field()
-    linkedInUrl: string;
+  @Field()
+  linkedInUrl: string;
 
-    @Field()
-    portfolio: string;
+  @Field()
+  portfolio: string;
 }

@@ -10,20 +10,20 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Resolver((of) => User)
 export class AuthResolver {
-    constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
-    @Query((returns) => String)
-    sayHi() {
-        return 'hi';
-    }
+  @Query((returns) => String)
+  sayHi() {
+    return 'hi';
+  }
 
-    @Mutation((returns) => User)
-    async signUp(@Args('signUpInput') signUpInput: SignUpInput) {
-        return this.authService.signUp(signUpInput);
-    }
+  @Mutation((returns) => User)
+  async signUp(@Args('signUpInput') signUpInput: SignUpInput) {
+    return this.authService.signUp(signUpInput);
+  }
 
-    @Mutation((returns) => Token)
-    async signIn(@Args('signInInput') signInInput: SignInInput) {
-        return this.authService.signIn(signInInput);
-    }
+  @Mutation((returns) => Token)
+  async signIn(@Args('signInInput') signInInput: SignInInput) {
+    return this.authService.signIn(signInInput);
+  }
 }

@@ -26,7 +26,7 @@ export class AuthService {
     @InjectRepository(Profile)
     private profileRepository: Repository<Profile>,
     private jwtService: JwtService,
-  ) { }
+  ) {}
 
   async signUp(signupInput: SignUpInput): Promise<User> {
     const { email, username, password } = signupInput;

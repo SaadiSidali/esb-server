@@ -4,10 +4,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 dotenv.config({
-  path: (process.env.NODE_ENV === 'production') ? '.env' : '.development.env'
+  path: process.env.NODE_ENV === 'production' ? '.env' : '.development.env',
 });
-
-
 
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
@@ -35,4 +33,4 @@ import { Profile } from './user/profile.entity';
     UserModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}
