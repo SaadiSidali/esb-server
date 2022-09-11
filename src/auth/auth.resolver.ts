@@ -2,7 +2,7 @@ import { Args, Int, Query, Resolver, Mutation } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
-import Token from './token-type';
+import Token from './login-type';
 import { SignInInput } from './signin-input';
 import { SignUpInput } from './signup-input';
 import User from '../user/user-type';
@@ -10,7 +10,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Resolver((of) => User)
 export class AuthResolver {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Query((returns) => String)
   sayHi() {
