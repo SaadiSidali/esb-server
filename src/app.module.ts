@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import User from './user/user.entity';
 import { Profile } from './user/profile.entity';
+import { AppController } from './app/app.controller';
 
 @Module({
   imports: [
@@ -32,5 +33,6 @@ import { Profile } from './user/profile.entity';
     }),
     UserModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
