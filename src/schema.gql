@@ -1,0 +1,57 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Login {
+  token: String!
+}
+
+type Mutation {
+  signIn(signInInput: SignInInput!): Login!
+  signUp(signUpInput: SignUpInput!): user!
+  test: String!
+  updateProfile(updateProfileInput: UpdateProfileInput!): Boolean!
+}
+
+type Profile {
+  biography: String!
+  expectedSalary: String!
+  firstName: String!
+  id: Float!
+  lastName: String!
+  levelOfStudy: String!
+  linkedInUrl: String!
+  phoneNumber: String!
+  portfolio: String!
+  repoUrl: String!
+  wilaya: String!
+}
+
+type Query {
+  me: user!
+  sayHi: String!
+}
+
+input SignInInput {
+  password: String!
+  username: String!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+input UpdateProfileInput {
+  field: String!
+  value: String!
+}
+
+type user {
+  email: String!
+  id: ID!
+  imgUrl: String!
+  profile: Profile!
+  username: String!
+}

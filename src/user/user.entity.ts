@@ -5,6 +5,8 @@ import {
   BaseEntity,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
 
@@ -25,6 +27,19 @@ export default class User extends BaseEntity {
   @Column()
   salt: string;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => Profile, { eager: true })
+  @JoinColumn({})
   profile: Profile;
+
+  @Column({ default: '' })
+  imgUrl: string;
+
+  @CreateDateColumn()
+  createdDate: Date
+
+  @UpdateDateColumn()
+  updatedDate: Date
+
+  @Column({ default: 0 })
+  _version: number
 }

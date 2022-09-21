@@ -41,9 +41,10 @@ export class AuthService {
     });
     try {
       // user.profile = profile;
-      await user.save();
-      const profile = await this.profileRepository.create({ userId: user.id });
+      const profile = await this.profileRepository.create({});
       await this.profileRepository.save(profile);
+      user.profile = profile;
+      await user.save();
     } catch (e) {
       if (e.code === '23505' || e.code === '22021') {
         throw new BadRequestException('User Exists');
@@ -54,9 +55,25 @@ export class AuthService {
     return user;
   }
 
-  async signIn(signInInput: SignInInput, @Req() req?): Promise<Login> {
+
+  async generateRefreshToken() {
+    this.jwtService.sign({}, {
+      secret: ''
+    })
+    return 'hiiii'
+  }
+
+  async signIn(signInInput: SignInInput,): Promise<Login> {
     const { username, password } = signInInput;
-    const user = await this.usersRepository.findOne({ where: { username } });
+    const user = await this.usersRepository.findOne({
+      where: { username }, relations: {
+        profile: true
+      }
+    });
+
+
+    console.log(user);
+
     if (!user) {
       throw new NotFoundException();
     }
@@ -66,7 +83,7 @@ export class AuthService {
     if (!result) {
       throw new NotFoundException();
     }
-    const payload: JwtPayload = { id: user.id, username: user.username };
+    const payload: JwtPayload = { id: user.id, username: user.username, imgUrl: user.imgUrl };
     const token = await this.jwtService.signAsync(payload);
 
     return { token };
