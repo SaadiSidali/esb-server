@@ -8,9 +8,6 @@ export class Profile {
   @Column({ default: '' })
   firstName: string;
 
-  @Column()
-  userId: number;
-
   @Column({ default: '' })
   lastName: string;
 

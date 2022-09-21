@@ -26,7 +26,9 @@ export class ProfileResolver {
 
     @ResolveField()
     async profile(@Parent() user: User) {
-        return this.userServise.getProfile(user.id);
+        console.log(user.profile.id);
+
+        return this.userServise.getProfile(user);
     }
 
     @Mutation((returns) => Boolean)
@@ -34,6 +36,6 @@ export class ProfileResolver {
         @Args('updateProfileInput') updateProfileInput: UpdateProfileInput,
         @GetUser() user: User,
     ): Promise<boolean> {
-        return this.userServise.updateProfile(updateProfileInput, user.id);
+        return this.userServise.updateProfile(updateProfileInput, user);
     }
 }

@@ -3,29 +3,30 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Profile } from './profile.entity';
 import { UpdateProfileInput } from './update-profile-input';
-import User from './user.entity';
+import User from './user-type';
+import UserEntity from './user.entity';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(UserEntity)
+    private usersRepository: Repository<UserEntity>,
     @InjectRepository(Profile)
     private profilesRepository: Repository<Profile>,
-  ) {}
+  ) { }
 
-  async getProfile(userId: number): Promise<Profile> {
+  async getProfile(user: User): Promise<Profile> {
     const result = await this.profilesRepository.findOne({
-      where: { userId: userId },
+      where: { id: user.profile.id },
     });
     return result;
   }
 
   async updateProfile(
     updateProfileInput: UpdateProfileInput,
-    userId: number,
+    user: User,
   ): Promise<boolean> {
-    const profile = await this.getProfile(userId);
+    const profile = await this.getProfile(user);
     const { field, value } = updateProfileInput;
     profile[field] = value;
     await this.profilesRepository.save(profile);

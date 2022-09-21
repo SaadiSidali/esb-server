@@ -12,6 +12,9 @@ export default class User {
   @Field()
   email: string;
 
+  @Field()
+  imgUrl: string;
+
   @Field((type) => Profile)
   profile: Profile;
 }
