@@ -7,9 +7,9 @@ type Login {
 }
 
 type Mutation {
+  logout: Boolean!
   signIn(signInInput: SignInInput!): Login!
   signUp(signUpInput: SignUpInput!): user!
-  test: String!
   updateProfile(updateProfileInput: UpdateProfileInput!): Boolean!
 }
 

@@ -15,6 +15,7 @@ import { randomUUID } from 'crypto';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { PrismaService } from './prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -44,7 +45,7 @@ import { PrismaService } from './prisma.service';
     UserModule,
   ],
   controllers: [AppController],
-  providers: [PrismaService]
+  providers: [PrismaService, JwtService]
 
 })
 export class AppModule { }

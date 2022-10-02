@@ -8,6 +8,7 @@ import {
 
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
+import { Response } from 'express'
 
 import { SignUpInput } from './signup-input';
 import User from '../user/user-type';
@@ -15,6 +16,7 @@ import { SignInInput } from './signin-input';
 import Login from './login-type';
 import { JwtPayload } from './jwt-payload.interface';
 import { PrismaService } from 'src/prisma.service';
+import { RefreshTokenPayload } from './refreshToken-payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -57,23 +59,21 @@ export class AuthService {
   }
 
 
-  async generateRefreshToken() {
-    this.jwtService.sign({}, {
-      secret: ''
+  async generateRefreshToken(data: RefreshTokenPayload) {
+    return await this.jwtService.signAsync(data, {
+      secret: process.env.REFRESH_TOKEN_SECRET,
+      expiresIn: '7d'
     })
-    return 'hiiii'
   }
 
-  async signIn(signInInput: SignInInput,): Promise<Login> {
+  async signIn(signInInput: SignInInput, res: Response): Promise<Login> {
     const { username, password } = signInInput;
     const user = await this.prisma.user.findFirst({
+
       where: { username }, include: {
         profile: true
       }
     });
-
-
-    console.log(user);
 
     if (!user) {
       throw new NotFoundException();
@@ -86,6 +86,12 @@ export class AuthService {
     }
     const payload: JwtPayload = { id: user.id, username: user.username, imgUrl: user.imgUrl };
     const token = await this.jwtService.signAsync(payload);
+    const refreshToken = await this.generateRefreshToken({ id: user.id, tokenVersion: user.tokenVersion });
+    res.cookie('_sid', refreshToken, {
+      httpOnly: true,
+      expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+    });
+
 
     return { token };
   }

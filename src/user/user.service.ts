@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { PrismaService } from 'src/prisma.service';
-import { Repository } from 'typeorm';
 import { Profile } from './profile-type';
 import { UpdateProfileInput } from './update-profile-input';
 import User from './user-type';

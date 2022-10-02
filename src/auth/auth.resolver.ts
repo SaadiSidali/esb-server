@@ -24,16 +24,13 @@ export class AuthResolver {
   }
 
   @Mutation((returns) => Token)
-  async signIn(@Args('signInInput') signInInput: SignInInput) {
-    return this.authService.signIn(signInInput);
+  async signIn(@Args('signInInput') signInInput: SignInInput, @GetRes() res: Response) {
+    return this.authService.signIn(signInInput, res);
   }
 
-  @Mutation(returns => String)
-  test(@GetReq() req: Request, @GetRes() res: Response) {
-    res.cookie('hi', 'sidali', {
-      httpOnly: true
-    })
-
-    return this.authService.generateRefreshToken()
+  @Mutation(returns => Boolean)
+  async logout(@GetRes() res: Response) {
+    res.clearCookie('_sid')
+    return true
   }
 }
