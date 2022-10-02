@@ -4,6 +4,7 @@ import { profileField } from './profile-field.enum';
 
 @InputType()
 export class UpdateProfileInput {
+  @IsNotEmpty()
   @IsEnum(profileField)
   @Field()
   field: string;
